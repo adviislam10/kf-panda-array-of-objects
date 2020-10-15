@@ -1,0 +1,10 @@
+Po;Buddy, I am the Dragon Warrior.;po.png;Po
+Tigress;That was pretty hardcore!;tigress.png;Tigress
+Mantis;Fear the bug!;mantis.png;Mantis
+Monkey;We should hang out!;monkey.png;Monkey
+Crane;You can chain my body, but you will never chain my warrior spirit!;crane.png;Crane
+Viper;I don't need to bite to fight!;viper.png;Viper
+Shifu;There is now a Level Zero.;shifu.png;Shifu
+Oogway;Yesterday is history, tomorrow is a mystery, but today is a gift.  That is why it is called the present.;oogway.png;Oogway
+Mr. Ping;We are noodle folk. Broth runs through our veins!;mr-ping.png;Mr._Ping
+Tai Lung;Fly back there and tell them... the real Dragon Warrior is coming home.;tai-lung.png;Tai_Lung
