@@ -1,10 +1,15 @@
 // Kung Fu Panda Look Up
 
 // Global Variables
-let characterArray = createCharacterArray();
+let characterArray = [];
+createCharacterArray();
+
+let slideIndex = 0;
 
 // Event Listener
 document.getElementById('search').addEventListener('click', characterSearch);
+document.getElementById('prev').addEventListener('click', prevSlide);
+document.getElementById('next').addEventListener('click', nextSlide);
 
 // Event Function
 function characterSearch() {
@@ -19,7 +24,29 @@ function characterSearch() {
         displayQuestionMark();
     } else {
         displayCharacter(characterArray[characterIndex]);
+        slideIndex = characterIndex;
     }
+}
+
+function nextSlide() {
+    // Increment and update index
+    slideIndex++;
+    if (slideIndex == characterArray.length) {
+        slideIndex = 0;
+    }
+
+    // Update the page
+    displayCharacter(characterArray[slideIndex]);
+}
+
+function prevSlide() {
+    slideIndex--;
+    if (slideIndex == -1) {
+        slideIndex = characterArray.length - 1;
+    }
+
+    // Update the page
+    displayCharacter(characterArray[slideIndex]);
 }
 
 function displayCharacter(characterObj) {
@@ -41,57 +68,24 @@ function displayQuestionMark() {
 }
 
 function createCharacterArray() {
-    return [{
-        name: 'Po',
-        quote: 'I am the Dragon Warrior.',
-        imgFile: 'po.png',
-        wikiName: 'Po'
-    }, {
-        name: 'Tigress',
-        quote: 'That was pretty hardcore!',
-        imgFile: 'tigress.png',
-        wikiName: 'Tigress'
-    }, {
-        name: 'Mantis',
-        quote: 'Fear the bug!',
-        imgFile: 'mantis.png',
-        wikiName: 'Mantis'
-    }, {
-        name: 'Monkey',
-        quote: 'We should hang out!',
-        imgFile: 'monkey.png',
-        wikiName: 'Monkey'
-    }, {
-        name: 'Crane',
-        quote: 'You can chain my body, but you will never chain my warrior spirit!',
-        imgFile: 'crane.png',
-        wikiName: 'Crane'
-    }, {
-        name: 'Viper',
-        quote: "I don't need to bite to fight!",
-        imgFile: 'viper.png',
-        wikiName: 'Viper'
-    }, {
-        name: 'Shifu',
-        quote: "There is now a Level Zero.",
-        imgFile: 'shifu.png',
-        wikiName: 'Shifu'
-    }, {
-        name: 'Oogway',
-        quote: "Yesterday is history, tomorrow is a mystery, but today is a gift.  That is why it is called the present.",
-        imgFile: 'oogway.png',
-        wikiName: 'Oogway'
-    }, {
-        name: 'Mr.Ping',
-        quote: 'We are noodle folk. Broth runs through our veins!',
-        imgFile: 'mr-ping.png',
-        wikiName: 'Mr._Ping'
-    }, {
-        name: 'Tai Lung',
-        quote: 'Fly back there and tell them... the real Dragon Warrior is coming home.',
-        imgFile: 'tai-lung.png',
-        wikiName: 'Tai_Lung'
-    }]
+    fetch('character-data.txt')
+        .then((rawData) => rawData.text())
+        .then(processData);
+}
+
+function processData(data) {
+    let lines = data.split('\r\n')
+    // Loop thorugh the lines and add to character array
+    for (let i = 0; i < lines.length; i++) {
+        let lineArray = lines[i].split(';')
+        characterArray.push({
+            name: lineArray[0],
+            quote: lineArray[1],
+            imgFile: lineArray[2],
+            wikiName: lineArray[3]
+        });
+
+    }
 }
 
 function getCharacterByName(aName) {
